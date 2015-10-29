@@ -1,0 +1,31 @@
+= form_for @item do |f|
+  - if @item.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@item.errors.count, "error")} prohibited this item from being saved:"
+      %ul
+        - @item.errors.full_messages.each do |msg|
+          %li= msg
+
+  .field
+    = f.text_field :name, placeholder: "Name", required: true, class:"form_control"
+  .field
+    = f.select(:size, options_for_select([["Large"], ["Regular"], ["Small"]]))
+  .field
+    = f.number_field :price, placeholder: "Price in Dollars", required: true
+  .field
+    = f.text_area :description, placeholder: "Description", required: true, class:"form_control"
+  .field
+    = f.file_field :cover  
+  .field  
+    - @categories.each do |category|
+      .field
+        = check_box_tag "categories[]",category.id
+        = category.name
+  -if current_user.admin_permission == 1 && ! @item.new_record?
+    .field
+      = f.label 'Reject'
+      = f.radio_button :availability, 0
+      = f.label 'Accept'
+      = f.radio_button :availability, 1
+  .actions
+    = f.submit 'Save', class:"btn field"

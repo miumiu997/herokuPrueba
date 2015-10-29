@@ -1,0 +1,20 @@
+%h1 SearchTEC
+= form_for @search, html:{class:"pure-form"} do |sear|
+  .field
+    = sear.label :keyword
+    = sear.text_field :keyword
+  .field  
+    - @categories.each do |category|
+      .field
+        = check_box_tag "categories[]",category.id
+        = category.name
+  .field
+    = sear.select(:size, options_for_select([[""],["Large"], ["Regular"], ["Small"]]))
+  .field
+    = sear.label :price
+    = sear.number_field :price
+  .field
+    = sear.label :description
+    = sear.text_field :description  
+  .actions
+    = sear.submit "Search", class:"btn"

@@ -1,0 +1,47 @@
+%p#notice= notice
+
+%p
+  %b Name:
+  = @item.name
+%p 
+  %b Likes:
+  = @item.likes
+  - if current_user != nil   
+    = link_to "Like",:onclick => update_visits_count(@item)  
+    
+= image_tag @item.cover.url(:thumb)
+    
+%p
+  %b Size:
+  = @item.size
+%p
+  %b Price:
+  = @item.price 
+%p  
+  %b Categories   
+  - if @item.categories != nil 
+    - @item.categories.each do |category|
+      = link_to category.name, category
+%p
+  %b Description:
+  = @item.description    
+%p 
+  %table{:border => 1}
+    %tbody
+      %tr
+        %td Comments
+        %td Written by
+      - @item.comments.each do |comment|
+        %tr
+          %td= comment.body
+          %td= find_user_email(comment)
+  - if current_user != nil
+    = render 'comments/form'
+  -if current_user != nil && current_user.admin_permission == 1 
+    = link_to 'Check Comments', item_comments_path(@item)
+    \|
+    = link_to 'Edit', edit_item_path(@item)
+    \|
+    = link_to 'Destroy', @item, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+= link_to 'Back', items_path

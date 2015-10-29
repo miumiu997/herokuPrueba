@@ -1,0 +1,30 @@
+
+= link_to "Back", new_search_path, class: "back" 
+
+%p 
+  %h1 Tec Results!
+  - if @search.search_items.empty?
+    %p No Records found
+  - else
+    .row
+      - @search.search_items.each do |se|
+        .col-md-4
+          -if se.availability == 1
+            %br
+              .search  
+                %p
+                  %b Name:
+                  = link_to se.name, se 
+                %p
+                  %b Size:
+                  = se.size 
+                %p
+                  %b Categories:
+                  = se.categories.name 
+                %p
+                  %b Description:
+                  = se.description  
+                %p
+                  %b Price: $
+                  = se.price
+= link_to "Back", new_search_path, class: "back" 

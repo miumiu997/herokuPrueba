@@ -1,0 +1,13 @@
+%h1 User Details
+
+%p
+  %b User Email:
+  = @user.email
+%p
+  %b Admin Permission (1 is admin, 0 is regular):
+  = @user.admin_permission
+
+= link_to 'Edit', edit_user_path(@user)
+\|
+= link_to 'Back', users_path
+

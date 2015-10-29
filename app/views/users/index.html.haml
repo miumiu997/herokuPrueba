@@ -1,0 +1,21 @@
+%h1 Users
+
+%table
+  %thead
+    %tr
+      %th User Email
+      %th Admin Permission
+
+  %tbody
+    - @users.each do |user|
+      %tr
+        %td= user.email
+        %td= user.admin_permission
+        %td= link_to 'Show', user
+        %td= link_to 'Edit', edit_user_path(user)
+
+%br
+
+= link_to 'Back To Home', welcome_index_path
+
+

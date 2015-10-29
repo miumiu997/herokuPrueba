@@ -1,0 +1,17 @@
+= form_for @user do |f|
+  - if @user.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@user.errors.count, "error")} prohibited this category from being saved:"
+      %ul
+        - @user.errors.full_messages.each do |msg|
+          %li= msg
+  .field 
+    = f.label :email
+    = f.text_field :email, disabled: true
+  .field
+    = f.label 'Revoke Admin Permission'
+    = f.radio_button :admin_permission, 0
+    = f.label 'Grant Admin Permission'
+    = f.radio_button :admin_permission, 1
+  .actions
+    = f.submit 'Save'
